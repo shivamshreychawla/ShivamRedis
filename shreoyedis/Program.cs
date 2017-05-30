@@ -33,7 +33,9 @@ namespace shreoyedis
         {
             ConnectionMultiplexer redisConn = ConnectionMultiplexer.Connect("localhost");
             IDatabase redDb = redisConn.GetDatabase();
-            redDb.StringSet("Key1", "value1");
+            //redDb.KeyDelete("Key1");
+            if (string.IsNullOrWhiteSpace(redDb.StringGet("Key1")))
+                redDb.StringSet("Key1", "value1");
             Console.WriteLine(redDb.StringGet("Key1"));
             Console.Read();
         }
